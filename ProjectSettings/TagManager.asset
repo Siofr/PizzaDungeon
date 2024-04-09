@@ -8,11 +8,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - Bullet
+  - Pickups
   - 
   - 
   - 
@@ -40,4 +40,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2963200935
+    locked: 0
+  - name: Level Objects
+    uniqueID: 2769889907
+    locked: 0
+  - name: Bullet
+    uniqueID: 1805229967
+    locked: 0
+  - name: Player
+    uniqueID: 1708989413
+    locked: 0
+  - name: Crosshair
+    uniqueID: 3353521241
+    locked: 0
+  - name: Pickups
+    uniqueID: 309217961
     locked: 0
