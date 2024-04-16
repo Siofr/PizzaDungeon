@@ -29,8 +29,6 @@ public class PizzaCraftInputs : MonoBehaviour
     [SerializeField] private DamageType damageType2;
     [SerializeField] private DamageType damageType3;
 
-
-
     List<AffectThePlayer> deligateEffect = new List<AffectThePlayer>(3);
     List<RenderIngredient> DelegateRender = new List<RenderIngredient>(3);
     private void Awake()
@@ -40,6 +38,18 @@ public class PizzaCraftInputs : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         menu = playerInputs.Player.Menu;
         menu.Enable();
+    }
+
+    private void OnEnable()
+    {
+        menu = playerInputs.Player.Menu;
+        menu.Enable();
+        menu.performed += Menu;
+    }
+
+    private void OnDisable()
+    {
+        menu.Disable();
     }
 
 
@@ -66,19 +76,15 @@ public class PizzaCraftInputs : MonoBehaviour
 
         }
         */
-        if (MenuOpen)
-        {
-            CreateList();
-        }
-        if (!MenuOpen)
-        {
-            MenuOpen = false;
-            DaMenu.SetActive(false);
-        }
-
-
-
-
+        //if (MenuOpen)
+        //{
+        //    CreateList();
+        //}
+        //if (!MenuOpen)
+        //{
+        //    MenuOpen = false;
+        //    DaMenu.SetActive(false);
+        //}
 
         //Enter to activate the pizzer
         if (Input.GetKeyUp(KeyCode.Return) && MenuOpen)
@@ -105,59 +111,55 @@ public class PizzaCraftInputs : MonoBehaviour
 
         }
     }
+
     public void Menu(InputAction.CallbackContext context)
     {
-       
-
-            if (!MenuOpen)
-            {
-                MenuOpen = true;
-                DaMenu.SetActive(true);
-                playerInputs.Disable();
-            }
-            else
-            {
-                MenuOpen = false;
-                DaMenu.SetActive(false);
-                playerInputs.Enable();
-            }
-        if (MenuOpen)
+        if (!MenuOpen)
         {
+            MenuOpen = true;
+            DaMenu.SetActive(true);
             CreateList();
         }
+        else
+        {
+            MenuOpen = false;
+            DaMenu.SetActive(false);
+        }
+        //if (MenuOpen)
+        //{
+            // CreateList();
+        //}
     }
+
     void CreateList()
     {
-
-        if (Input.GetKeyUp(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             deligateEffect.Add(Effect1);
             DelegateRender.Add(Render1);
-            // RenderToping();
-
+            RenderToping();
         }
 
-        if (Input.GetKeyUp(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             deligateEffect.Add(Effect2);
             DelegateRender.Add(Render2);
-            // RenderToping();
+            RenderToping();
         }
 
-        if (Input.GetKeyUp(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             deligateEffect.Add(Effect3);
             DelegateRender.Add(Render3);
-            // RenderToping();
+            RenderToping();
         }
 
-        if (Input.GetKeyUp(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             deligateEffect.Add(Effect4);
             DelegateRender.Add(Render4);
-            // RenderToping();
+            RenderToping();
         }
-
 
         //removes latest thing from the array(sets to null)
         if (Input.GetKeyUp(KeyCode.Backspace))
@@ -171,14 +173,9 @@ public class PizzaCraftInputs : MonoBehaviour
             {
                 DelegateRender[i]();
                 DelegateRender.Remove(DelegateRender[i]);
-
             }
         }
-
-
     }
-
-
 
     void Effect1()
     {
@@ -205,22 +202,21 @@ public class PizzaCraftInputs : MonoBehaviour
         playerStatsScript.SwapResistance(damageType);
     }
 
-    void Render1()
+    public void Render1()
     {
-        if (!Ingredient1)
+        if (Ingredient1)
         {
-
             Ingredient1.SetActive(true);
         }
         else
         {
             Ingredient1.SetActive(false);
         }
-
     }
+
     void Render2()
     {
-        if (!Ingredient2)
+        if (Ingredient2)
         {
             Ingredient2.SetActive(true);
         }
@@ -229,9 +225,10 @@ public class PizzaCraftInputs : MonoBehaviour
             Ingredient2.SetActive(false);
         }
     }
+
     void Render3()
     {
-        if (!Ingredient3)
+        if (Ingredient3)
         {
             Ingredient3.SetActive(true);
         }
@@ -240,9 +237,10 @@ public class PizzaCraftInputs : MonoBehaviour
             Ingredient3.SetActive(false);
         }
     }
+
     void Render4()
     {
-        if (!Ingredient4)
+        if (Ingredient4)
         {
             Ingredient4.SetActive(true);
         }
