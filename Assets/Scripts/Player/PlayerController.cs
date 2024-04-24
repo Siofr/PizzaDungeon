@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [Header("Rigidbody")]
     public Rigidbody2D rgdBody;
 
+    public Transform cameraTarget;
+
     // Player Inputs
     public PlayerInputs playerInputs;
     private InputAction move;
@@ -67,6 +69,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Cursor.visible = false;
+
         playerInputs = new PlayerInputs();
         rgdBody = GetComponent<Rigidbody2D>();
 
@@ -81,6 +85,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Look();
+        cameraTarget.position = (bodyTransform.position + crosshair.position) / 2;
     }
 
     private void FixedUpdate()
@@ -108,12 +113,9 @@ public class PlayerController : MonoBehaviour
         // Read Mouse Movement
         lookInput = playerCam.ScreenToWorldPoint(look.ReadValue<Vector2>());
         crosshair.position = lookInput;
-        // lookInput = look.ReadValue<Vector2>();
 
         if (lookInput != Vector2.zero)
         {
-            // crosshair.transform.localPosition = lookInput;
-
             FlipSprite(lookInput);
         }
 
