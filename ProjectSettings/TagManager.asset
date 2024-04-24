@@ -54,9 +54,12 @@ TagManager:
   - name: Player
     uniqueID: 1708989413
     locked: 0
-  - name: Crosshair
-    uniqueID: 3353521241
-    locked: 0
   - name: Pickups
     uniqueID: 309217961
+    locked: 0
+  - name: Walls
+    uniqueID: 1618122255
+    locked: 0
+  - name: Crosshair
+    uniqueID: 3353521241
     locked: 0

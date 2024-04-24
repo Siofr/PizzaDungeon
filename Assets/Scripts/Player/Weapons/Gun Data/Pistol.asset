@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094833022b0ebfe4b9eb45a88b0e437c, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  gunSprite: {fileID: 21300000, guid: eabd5a8d30ca9eb4ebeb151078e2f06c, type: 3}
+  gunSprite: {fileID: 21300000, guid: 73d24961dba7b724bafe6787882dc967, type: 3}
   damage: 5
   fireRate: 0.5
   bulletSpeed: 20
