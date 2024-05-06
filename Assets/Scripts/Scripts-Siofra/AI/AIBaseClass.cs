@@ -16,21 +16,29 @@ public class AIBaseClass : MonoBehaviour, IDamageable
     public float rateOfFire;
     public float speed;
     public float engagementRange;
-    private float nextShot;
+    public float nextShot;
 
     public GameObject bullet;
     private Bullet bulletScript;
 
     private NavMeshAgent agent;
+    private int playerLayerMask = 1 << 3;
+
+    public Transform aimer;
+    public Vector3 targetDir;
 
     public DamageType currentDamageType;
     public DamageType currentResistance;
     public DamageType currentWeakness;
     public DamageType currentHealedBy;
 
+    [SerializeField] private GameDataManager dataManager;
+
     // Start is called before the first frame update
-    void Awake()
+    public virtual void Awake()
     {
+        playerLayerMask = ~playerLayerMask;
+
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -48,13 +56,16 @@ public class AIBaseClass : MonoBehaviour, IDamageable
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
+        targetDir = player.transform.position - transform.position;
+        aimer.transform.right = new Vector3(targetDir.x, targetDir.y, 0);
+
         Debug.DrawLine(transform.position, player.transform.position);
         Movement();
     }
 
-    void Movement()
+    public virtual void Movement()
     {
         RaycastHit2D hit = Physics2D.Linecast(transform.position, player.transform.position);
         if (hit.collider.tag != "Player")
@@ -63,7 +74,12 @@ public class AIBaseClass : MonoBehaviour, IDamageable
         }
         else
         {
-            Attack();
+            if (Time.time > nextShot)
+            {
+                nextShot = Time.time + rateOfFire;
+                StartCoroutine(Attack());
+            }
+            
             if (Vector3.Distance(player.transform.position, transform.position) <= engagementRange)
             {
                 agent.SetDestination(transform.position);
@@ -75,23 +91,7 @@ public class AIBaseClass : MonoBehaviour, IDamageable
         }
     }
 
-    void Attack()
-    {
-        if (Time.time > nextShot)
-        {
-            nextShot = Time.time + rateOfFire;
-
-            Vector2 playerPosition = player.transform.position;
-            Vector2 aimDirection = (playerPosition - new Vector2(transform.position.x, transform.position.y)).normalized;
-
-            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-
-            Quaternion aimAngle = new Quaternion(0, 0, angle, 0);
-
-            GameObject newBullet = Instantiate(bullet, transform.position, aimAngle);
-            newBullet.SetActive(true);
-        }
-    }
+    public virtual IEnumerator Attack() { yield return null; }
 
     public void ChangeHealth(float value, DamageType damageType)
     {

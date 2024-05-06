@@ -6,6 +6,7 @@ public class EntityStats : MonoBehaviour, IDamageable
 {
     public float health;
     private float maxHealth;
+    [SerializeField] private Healthbar healthbar;
 
     public DamageType currentDamageType;
     public DamageType currentResistance;
@@ -58,6 +59,8 @@ public class EntityStats : MonoBehaviour, IDamageable
         {
             health = maxHealth;
         }
+
+        healthbar.UpdateHealth(health);
     }
 
     public void SwapDamageType(DamageType newDamageType)
