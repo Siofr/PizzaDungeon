@@ -1,21 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Gun : MonoBehaviour
 {
+    [SerializeField] Transform crosshair;
     [SerializeField] GunScriptableObject[] gunDataArray;
     [SerializeField] GameObject bullet;
+    [SerializeField] private AudioClip bulletSound;
     private Bullet bulletScript;
+    private AudioPlayer audioPlayer;
 
     private float nextShot;
     private int currentWeapon;
 
     private SpriteRenderer weaponRenderer;
 
+    private Quaternion currentRotation;
+    private float startAngle;
+    private float endAngle;
+
+    [SerializeField] private float spread;
+
     private void Awake()
     {
+        audioPlayer = GetComponentInParent<AudioPlayer>();
         weaponRenderer = GetComponent<SpriteRenderer>();
         weaponRenderer.sprite = gunDataArray[currentWeapon].gunSprite;
 
@@ -27,6 +38,7 @@ public class Gun : MonoBehaviour
     {
         if (Time.time > nextShot)
         {
+            audioPlayer.PlayAudio(bulletSound);
             if (gunDataArray[currentWeapon].projectiles == 1)
             {
                 nextShot = Time.time + gunDataArray[currentWeapon].fireRate;
@@ -36,11 +48,19 @@ public class Gun : MonoBehaviour
             }
             else
             {
+                Vector3 targetDir = crosshair.position - transform.position;
+                float targetAngle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+                startAngle = targetAngle - spread;
+                endAngle = targetAngle + spread;
+                float angleSteps = (endAngle - startAngle) / gunDataArray[currentWeapon].projectiles;
+
                 for (int i = 0; i < gunDataArray[currentWeapon].projectiles; i++)
                 {
-                    nextShot = Time.time + gunDataArray[currentWeapon].fireRate;
-
-                    GameObject newBullet = Instantiate(bullet, transform.position, transform.rotation);
+                    float currentAngle = startAngle + angleSteps * i;
+                    Vector3 bulletDirection = new Vector3(0, 0, currentAngle);
+                    GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+                    currentRotation.eulerAngles = bulletDirection;
+                    newBullet.transform.rotation = currentRotation;
                     newBullet.SetActive(true);
                 }
             }

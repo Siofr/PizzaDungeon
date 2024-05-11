@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GameDataManager : MonoBehaviour
 {
-    [SerializeField] int highestEnemiesKilled;
-    [SerializeField] int totalEnemiesKilled;
-    [SerializeField] int totalPizzasCrafted;
-    [SerializeField] float fastestRun;
+    [HideInInspector] public int highestEnemiesKilled;
+    [HideInInspector] public int totalEnemiesKilled;
+    [HideInInspector] public int totalPizzasCrafted;
+    [HideInInspector] public float fastestRun;
 
     public int enemiesKilledCurrentSession;
     public int pizzasCraftedCurrentSession;
@@ -32,7 +32,7 @@ public class GameDataManager : MonoBehaviour
 
     public void SaveFromScene(float runSpeed, bool death)
     {
-        if (runSpeed < gameData.gameStatus.fastestRun && !death)
+        if ((runSpeed < gameData.gameStatus.fastestRun || gameData.gameStatus.fastestRun == 0) && !death)
         {
             gameData.gameStatus.fastestRun = runSpeed;
         }

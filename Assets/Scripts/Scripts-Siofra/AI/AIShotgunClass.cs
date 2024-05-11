@@ -11,12 +11,6 @@ public class AIShotgunClass : AIBaseClass
     private float startAngle;
     private float endAngle;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public override IEnumerator Attack()
     {
         float targetAngle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;

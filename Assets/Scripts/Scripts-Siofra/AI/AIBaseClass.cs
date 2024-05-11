@@ -18,6 +18,8 @@ public class AIBaseClass : MonoBehaviour, IDamageable
     public float engagementRange;
     public float nextShot;
 
+    private DamageFlash damageFlash;
+
     public GameObject bullet;
     private Bullet bulletScript;
 
@@ -25,7 +27,11 @@ public class AIBaseClass : MonoBehaviour, IDamageable
     private int playerLayerMask = 1 << 3;
 
     public Transform aimer;
-    public Vector3 targetDir;
+    [HideInInspector] public Vector3 targetDir;
+
+    [HideInInspector] public bool isAttacking;
+
+    [SerializeField] private GameObject itemDrop;
 
     public DamageType currentDamageType;
     public DamageType currentResistance;
@@ -38,6 +44,8 @@ public class AIBaseClass : MonoBehaviour, IDamageable
     public virtual void Awake()
     {
         playerLayerMask = ~playerLayerMask;
+
+        damageFlash = GetComponent<DamageFlash>();
 
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -74,9 +82,10 @@ public class AIBaseClass : MonoBehaviour, IDamageable
         }
         else
         {
-            if (Time.time > nextShot)
+            if (Time.time > nextShot && !isAttacking)
             {
                 nextShot = Time.time + rateOfFire;
+                isAttacking = true;
                 StartCoroutine(Attack());
             }
             
@@ -116,8 +125,13 @@ public class AIBaseClass : MonoBehaviour, IDamageable
             health -= value * valueMultiplier;
         }
 
+        damageFlash.CallDamageFlash();
+
         if (health <= 0)
         {
+            itemDrop.transform.position = transform.position;
+            dataManager.enemiesKilledCurrentSession++;
+            itemDrop.SetActive(true);
             Destroy(gameObject);
         }
 

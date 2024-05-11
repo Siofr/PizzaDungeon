@@ -5,11 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private GameObject impactEffect;
-    private Animator impactAnimator;
-    private AnimationClip impactClip;
+    public GameObject impactEffect;
+    [HideInInspector] public Animator impactAnimator;
+    [HideInInspector] public AnimationClip impactClip;
 
-    private Rigidbody2D rgdBody;
+    [HideInInspector] public Rigidbody2D rgdBody;
 
     public float bulletDamage;
     public DamageType damageType;
@@ -19,17 +19,13 @@ public class Bullet : MonoBehaviour
     public float speed;
     public float lifetime;
 
-    private void Start()
+    public virtual void Awake()
     {
         rgdBody = GetComponent<Rigidbody2D>();
         impactAnimator = impactEffect.GetComponent<Animator>();
 
         impactClip = impactAnimator.runtimeAnimatorController.animationClips[0];
-    }
 
-    // Start is called before the first frame update
-    void Awake()
-    {
         Destroy(gameObject, lifetime);
     }
 
@@ -45,7 +41,7 @@ public class Bullet : MonoBehaviour
         bulletSprite.color = newDamageType.damageColour;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
         ContactPoint2D[] contacts = new ContactPoint2D[1];
 
