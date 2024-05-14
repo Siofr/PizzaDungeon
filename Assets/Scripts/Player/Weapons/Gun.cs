@@ -9,7 +9,6 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform crosshair;
     [SerializeField] GunScriptableObject[] gunDataArray;
     [SerializeField] GameObject bullet;
-    [SerializeField] private AudioClip bulletSound;
     private Bullet bulletScript;
     private AudioPlayer audioPlayer;
 
@@ -38,7 +37,7 @@ public class Gun : MonoBehaviour
     {
         if (Time.time > nextShot)
         {
-            audioPlayer.PlayAudio(bulletSound);
+            audioPlayer.PlayAudio(gunDataArray[currentWeapon].firingNoise);
             if (gunDataArray[currentWeapon].projectiles == 1)
             {
                 nextShot = Time.time + gunDataArray[currentWeapon].fireRate;

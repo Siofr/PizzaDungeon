@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class AIBaseClass : MonoBehaviour, IDamageable
 {
-    private GameObject player;
+    [HideInInspector] public GameObject player;
 
     public float health;
     private float maxHealth;
@@ -55,7 +55,7 @@ public class AIBaseClass : MonoBehaviour, IDamageable
 
         player = GameObject.FindWithTag("Player");
 
-        maxHealth = health;
+        maxHealth = health * PlayerPrefs.GetFloat("EnemyHealth");
 
         bulletScript = bullet.GetComponent<Bullet>();
         bulletScript.bulletDamage = damage; 

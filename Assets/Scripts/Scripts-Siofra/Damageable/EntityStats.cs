@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EntityStats : MonoBehaviour, IDamageable
 {
@@ -23,7 +24,11 @@ public class EntityStats : MonoBehaviour, IDamageable
     {
         bulletScript = bulletEntity.GetComponent<Bullet>();
         bulletScript.SwapBulletDamageType(currentDamageType);
-        maxHealth = health;
+        maxHealth = health * PlayerPrefs.GetFloat("PlayerHealth");
+
+        Slider healthbarComponent = healthbar.GetComponent<Slider>();
+        healthbarComponent.maxValue = maxHealth;
+        healthbarComponent.value = maxHealth;
     }
 
     public void ChangeHealth(float value, DamageType damageType)

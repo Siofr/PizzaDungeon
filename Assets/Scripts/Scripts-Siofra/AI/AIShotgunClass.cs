@@ -28,6 +28,8 @@ public class AIShotgunClass : AIBaseClass
             newBullet.SetActive(true);
         }
 
+        isAttacking = false;
+
         yield return null;
     }
 }

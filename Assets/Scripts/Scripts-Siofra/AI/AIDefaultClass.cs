@@ -10,6 +10,8 @@ public class AIDefaultClass : AIBaseClass
         newBullet.transform.right = aimer.transform.right;
         newBullet.SetActive(true);
 
+        isAttacking = false;
+
         yield return null;
     }
 }

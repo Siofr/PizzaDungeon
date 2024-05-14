@@ -33,7 +33,6 @@ public class AISpreadClass : AIBaseClass
 
         while (Vector3.Distance(spriteObject.transform.localScale, originalSize * maxGrowthMultiplier) > 0.1)
         {
-            Debug.Log("Loop 1");
             spriteObject.transform.localScale = Vector3.Lerp(spriteObject.transform.localScale, transform.localScale * maxGrowthMultiplier, 3f * Time.deltaTime);
             yield return null;
         }
@@ -49,7 +48,6 @@ public class AISpreadClass : AIBaseClass
 
         while (Vector3.Distance(spriteObject.transform.localScale, originalSize) > 0.1)
         {
-            Debug.Log("Loop 2");
             spriteObject.transform.localScale = Vector3.Lerp(spriteObject.transform.localScale, originalSize, 10f * Time.deltaTime);
             yield return null;
         }

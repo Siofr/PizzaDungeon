@@ -13,11 +13,12 @@ public class Healthbar : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
+        healthText.text = slider.value.ToString("0");
     }
 
     public void UpdateHealth(float amount)
     {
         slider.value = amount;
-        healthText.text = amount.ToString();
+        healthText.text = amount.ToString("0");
     }
 }

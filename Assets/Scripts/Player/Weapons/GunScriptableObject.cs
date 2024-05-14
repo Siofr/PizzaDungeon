@@ -13,4 +13,6 @@ public class GunScriptableObject : ScriptableObject
     public float bulletLifetime;
     public int projectiles;
     public float spread;
+
+    public AudioClip firingNoise;
 }

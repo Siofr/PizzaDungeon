@@ -7,7 +7,6 @@ public class PlayerPrefsLoader : MonoBehaviour
 {
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private string[] mixerGroups;
-    [SerializeField] private GameObject saveIndicator;
 
     // Start is called before the first frame update
     void Start()
@@ -16,12 +15,5 @@ public class PlayerPrefsLoader : MonoBehaviour
         {
             audioMixer.SetFloat(mixerGroups[i], PlayerPrefs.GetFloat(mixerGroups[i]));
         }
-    }
-
-    public IEnumerator SaveIndicator()
-    {
-        saveIndicator.SetActive(true);
-        yield return new WaitForSeconds(2.5f);
-        saveIndicator.SetActive(false);
     }
 }

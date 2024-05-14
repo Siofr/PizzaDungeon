@@ -19,3 +19,4 @@ MonoBehaviour:
   bulletLifetime: 2
   projectiles: 1
   spread: 5
+  firingNoise: {fileID: 8300000, guid: f0b761081d55c4348836f7f54fa6c404, type: 3}

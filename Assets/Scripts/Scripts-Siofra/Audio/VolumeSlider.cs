@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using TMPro;
 
 public class VolumeSlider : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class VolumeSlider : MonoBehaviour
 
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private string mixerGroup;
+    [SerializeField] private TMP_Text volumeText;
 
     private Slider slider;
 
@@ -33,6 +35,8 @@ public class VolumeSlider : MonoBehaviour
         float audioVolume = Mathf.Log10(value) * 20;
         audioVolume = Mathf.Clamp(audioVolume, -60, 0);
         audioMixer.SetFloat(mixerGroup, audioVolume);
+
+        volumeText.text = (value * 100).ToString("0");
     }
 
     public void SaveVolume()
