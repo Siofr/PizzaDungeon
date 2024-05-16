@@ -54,38 +54,38 @@ public class UIVisualise : MonoBehaviour
     {
         if (Cheese.activeInHierarchy)
         {
-            craft.itemVars[4]++;
+            
             Cheese.SetActive (false);
         }
         if (Peperoni.activeInHierarchy)
         {
             //h
-            craft.itemVars[0]++;
+            
             Peperoni.SetActive(false);
         }
         if (Pineapple.activeInHierarchy)
         {
-            craft.itemVars[1]++;
+            
             Pineapple.SetActive (false);
         }
         if (Olive.activeInHierarchy)
         {
-            craft.itemVars[2]++;
+            
             Olive.SetActive (false);
         }
         if (Mushroom.activeInHierarchy)
         {
-            craft.itemVars[3]++;
+            
             Mushroom.SetActive (false);
         }
         if (Tomato.activeInHierarchy)
         {
-            craft.itemVars[5]++;
+           
             Tomato.SetActive (false);
         }
         if (Pepper.activeInHierarchy)
         {
-            craft.itemVars[6]++;
+            
             Pepper.SetActive (false);
         }
 

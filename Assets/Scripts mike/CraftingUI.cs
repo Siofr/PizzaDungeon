@@ -238,13 +238,14 @@ public class CraftingUI : MonoBehaviour
 
         public void Delete()
     {
-        for (int i = 0; i < deligateEffect.Count; i++)
-        {
-           // deligateEffect.Remove(deligateEffect[i]);
-            deligateEffect.Clear();
+
+        deligateEffect[0]();
+        deligateEffect[1]();
+        deligateEffect[2]();
+        deligateEffect.Clear();
             Vis.VisualOFF0();
-            //trash = false;
-        }
+            trash = false;
+     
     }
 
 
@@ -259,6 +260,10 @@ public class CraftingUI : MonoBehaviour
         Debug.Log("bruh1");
         
         playerStatsScript.health = 10;
+        }
+        else
+        {
+            itemVars[0]++;
         }
        
     }
