@@ -82,17 +82,19 @@ public class AIBaseClass : MonoBehaviour, IDamageable
     // Update is called once per frame
     public void Update()
     {
-        Debug.Log(health);
-        targetDir = player.transform.position - transform.position;
-        aimer.transform.right = new Vector3(targetDir.x, targetDir.y, 0);
+        if (player.activeInHierarchy)
+        {
+            targetDir = player.transform.position - transform.position;
+            aimer.transform.right = new Vector3(targetDir.x, targetDir.y, 0);
 
-        Movement();
+            Movement();
+        }
     }
 
     public virtual void Movement()
     {
         RaycastHit2D hit = Physics2D.Linecast(transform.position, player.transform.position);
-        if (hit.collider.tag != "Player" && spottedPlayer)
+        if (hit.collider.tag != "Player" && spottedPlayer && player != null)
         {
             agent.SetDestination(player.transform.position);
             anim.SetBool("isMoving", true);

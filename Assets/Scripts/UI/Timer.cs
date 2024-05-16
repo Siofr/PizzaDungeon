@@ -49,7 +49,7 @@ public class Timer : MonoBehaviour
         currentTimerText.text = ConvertToTime(currentRunTime);
     }
 
-    string ConvertToTime(float time)
+    public string ConvertToTime(float time)
     {
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);

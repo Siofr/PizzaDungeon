@@ -11,6 +11,8 @@ public class Bullet : MonoBehaviour
 
     [HideInInspector] public Rigidbody2D rgdBody;
 
+    public TrailRenderer bulletTrail;
+
     public float bulletDamage;
     public DamageType damageType;
 
@@ -38,6 +40,8 @@ public class Bullet : MonoBehaviour
     public void SwapBulletDamageType(DamageType newDamageType)
     {
         damageType = newDamageType;
+        bulletTrail.startColor = newDamageType.damageColour;
+        bulletTrail.endColor = newDamageType.damageColour;
         bulletSprite.color = newDamageType.damageColour;
     }
 

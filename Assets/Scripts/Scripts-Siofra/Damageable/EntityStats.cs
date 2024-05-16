@@ -27,6 +27,8 @@ public class EntityStats : MonoBehaviour, IDamageable
 
     public float entitySpeed;
 
+    public GameObject deathScreen;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -74,7 +76,8 @@ public class EntityStats : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            Debug.Log("Entity Dead");
+            deathScreen.GetComponent<DeathScreen>().ShowDeathScreen();
+            gameObject.SetActive(false);
         }
 
         // Don't let player go above max health

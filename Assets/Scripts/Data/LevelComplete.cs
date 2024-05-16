@@ -9,17 +9,13 @@ public class LevelComplete : MonoBehaviour
     [SerializeField] private GameDataManager gameDataManager;
     [SerializeField] private Timer timer;
 
+    [SerializeField] private DeathScreen deathScreen;
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            LoadNextScene();
+            deathScreen.ShowVictoryScreen();
         }
-    }
-
-    public void LoadNextScene()
-    {
-        gameDataManager.SaveFromScene(timer.currentRunTime, gameDataManager.enemiesKilledCurrentSession, gameDataManager.pizzasCraftedCurrentSession, false);
-        SceneManager.LoadScene(sceneToLoad);
     }
 }
