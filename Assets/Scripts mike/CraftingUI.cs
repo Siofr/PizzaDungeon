@@ -15,11 +15,20 @@ public class CraftingUI : MonoBehaviour
 
     // 0 pepperoni, 1 pineapple, 2 olive, 3 mushroom, 4 cheese, 5 tomato, 6 pepper
     public int[] itemVars;
-    
-    //Items vars
-    
-    
 
+    //Items vars
+
+
+    //UI Effects
+    public GameObject Speedboost;
+    public GameObject Speeddown;
+    public GameObject CurResist;
+    public GameObject CurWeakness;
+    public GameObject DamegeType;
+
+    public GameObject dashregenUP;
+    public GameObject dashregenDOWN;
+    public float DefaultEffectTimer;
 
 
 
@@ -28,6 +37,7 @@ public class CraftingUI : MonoBehaviour
     public GameObject DaMenu;
     AudioSource audioSource;
     public UIVisualise Vis;
+
 
     [Header("DamageTypes")]
     [SerializeField] private DamageType damageType;
@@ -68,6 +78,7 @@ public class CraftingUI : MonoBehaviour
         if (!MenuOpen)
         {
             MenuOpen = false;
+            DaMenu.SetActive(false);
         }
 
         // debug list
@@ -251,63 +262,102 @@ public class CraftingUI : MonoBehaviour
 
 
 
-    // removal is currently not right cus you can dupe them kinda 
+    
 
-    void Effect1()
+    void Effect1()//peperoni
     {
-        if (!trash)
-        {
         Debug.Log("bruh1");
-        
-        playerStatsScript.health = 10;
-        }
-        else
-        {
-            itemVars[0]++;
-        }
-       
-    }
 
-    void Effect2()
+        playerStatsScript.SwapDamageType(damageType);
+        playerStatsScript.staminaRegenSpeed = playerStatsScript.staminaRegenSpeed - 3;
+        dashregenDOWN.SetActive(true);
+        dashregenDOWN.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+        StartCoroutine(RegenDown(DefaultEffectTimer));
+
+    }
+    IEnumerator RegenDown(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        playerStatsScript.staminaRegenSpeed = playerStatsScript.entitySpeed + 3;
+        dashregenDOWN.SetActive(false);
+    }
+    void Effect2()//olive 
     {
         Debug.Log("bruh2");
-        
-        playerStatsScript.health = playerStatsScript.health - 5;
-        
-    }
 
-    void Effect3()
+        Speeddown.SetActive(true);
+        Speeddown.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+
+
+        playerStatsScript.SwapResistance(damageType2);
+        playerStatsScript.entitySpeed = playerStatsScript.entitySpeed - 3;
+        StartCoroutine(SpeedDebuff(DefaultEffectTimer));
+
+
+    }
+    IEnumerator SpeedDebuff(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Speeddown.SetActive(false);
+        playerStatsScript.entitySpeed = playerStatsScript.entitySpeed + 3;
+    }
+    void Effect3()//peper
     {
         Debug.Log("bruh3");
+       Speedboost.SetActive(true);
+        Speedboost.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+        StartCoroutine(SpeedBoost(DefaultEffectTimer));
        
        playerStatsScript.entitySpeed = playerStatsScript.entitySpeed + 3;
-        playerStatsScript.SwapResistance(damageType2);
+        playerStatsScript.SwapResistance(null);
+        playerStatsScript.health = playerStatsScript.health - 10;
+    }
+    IEnumerator SpeedBoost(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Speedboost.SetActive(false);
+        playerStatsScript.entitySpeed = playerStatsScript.entitySpeed - 3;
     }
 
-    void Effect4()
+    void Effect4()//tomato
     {
         Debug.Log("bruh4");
-        playerStatsScript.SwapResistance(damageType);
+        playerStatsScript.SwapResistance(damageType2);
+        playerStatsScript.health += 5;
+        playerStatsScript.SwapWeakness(null);
+
     }
-    void Effect5()
+    void Effect5()//cheese
     {
         Debug.Log("bruh5");
-
+        playerStatsScript.SwapResistance(damageType);
+        playerStatsScript.SwapWeakness(damageType3);
         
     }
-    void Effect6()
+    void Effect6()//shroom
     {
         Debug.Log("bruh6");
+        playerStatsScript.health += 20;
+        playerStatsScript.staminaRegenSpeed = playerStatsScript.staminaRegenSpeed - 3;
+        dashregenDOWN.SetActive(true);
+        dashregenDOWN.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+        StartCoroutine(RegenDown(DefaultEffectTimer));
 
-        // heal basic enemy type bruh
 
 
     }
-    void Effect7()
+    void Effect7()//pinapple
     {
         Debug.Log("bruh7");
- 
+        DefaultEffectTimer += 5;
+       StartCoroutine(AddTime(DefaultEffectTimer));
 
+
+    }
+    IEnumerator AddTime(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        DefaultEffectTimer -= 5;
     }
 
 }

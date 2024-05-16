@@ -9,7 +9,7 @@ public class EntityStats : MonoBehaviour, IDamageable
     private float maxHealth;
 
     public float dashAmount;
-    [SerializeField] private float staminaRegenSpeed;
+    [SerializeField] public float staminaRegenSpeed;
 
     [SerializeField] private Healthbar healthbar;
     [SerializeField] private Slider staminaBar;
