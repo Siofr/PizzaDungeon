@@ -38007,7 +38007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pizzer
+  m_text: Pizza Crafter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6006c47061247a340a79c70323532f47, type: 2}
   m_sharedMaterial: {fileID: -1581436028378477039, guid: 6006c47061247a340a79c70323532f47, type: 2}
