@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out IDamageable damageable))
         {
-            Debug.Log("Damage");
+            Debug.Log(bulletDamage);
             damageable.ChangeHealth(bulletDamage, damageType);
             Destroy(gameObject);
         }

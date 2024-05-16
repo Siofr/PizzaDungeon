@@ -19,7 +19,7 @@ public class LevelComplete : MonoBehaviour
 
     public void LoadNextScene()
     {
-        gameDataManager.SaveFromScene(timer.currentRunTime, false);
+        gameDataManager.SaveFromScene(timer.currentRunTime, gameDataManager.enemiesKilledCurrentSession, gameDataManager.pizzasCraftedCurrentSession, false);
         SceneManager.LoadScene(sceneToLoad);
     }
 }
