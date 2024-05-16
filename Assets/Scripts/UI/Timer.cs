@@ -17,6 +17,8 @@ public class Timer : MonoBehaviour
 
     public float currentRunTime;
 
+    public bool isPaused = false;
+
     GameData gameData;
 
     private void Awake()
@@ -33,7 +35,7 @@ public class Timer : MonoBehaviour
         currentRunTime += Time.deltaTime;
         UpdateTimer();
 
-        if (gameData.gameStatus.fastestRun - currentRunTime < 10)
+        if (gameData.gameStatus.fastestRun - currentRunTime < 10 && !isPaused)
         {
             timerPanel.transform.Rotate(new Vector3(timerPanel.transform.localRotation.x, timerPanel.transform.localRotation.y, Mathf.Sin(Time.time * textShakeSpeed) * textShakeAmount));
         }

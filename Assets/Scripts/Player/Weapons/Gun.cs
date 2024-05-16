@@ -38,17 +38,23 @@ public class Gun : MonoBehaviour
         if (Time.time > nextShot)
         {
             audioPlayer.PlayAudio(gunDataArray[currentWeapon].firingNoise);
+            nextShot = Time.time + gunDataArray[currentWeapon].fireRate;
+
+            Vector3 targetDir = crosshair.position - transform.position;
+            float targetAngle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+
             if (gunDataArray[currentWeapon].projectiles == 1)
             {
-                nextShot = Time.time + gunDataArray[currentWeapon].fireRate;
-
-                GameObject newBullet = Instantiate(bullet, transform.position, transform.rotation);
+                Vector3 bulletDirection = new Vector3(0, 0, targetAngle);
+                GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+                currentRotation.eulerAngles = bulletDirection;
+                newBullet.transform.rotation = currentRotation;
                 newBullet.SetActive(true);
             }
             else
             {
-                Vector3 targetDir = crosshair.position - transform.position;
-                float targetAngle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+                //Vector3 targetDir = crosshair.position - transform.position;
+                //float targetAngle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
                 startAngle = targetAngle - spread;
                 endAngle = targetAngle + spread;
                 float angleSteps = (endAngle - startAngle) / gunDataArray[currentWeapon].projectiles;

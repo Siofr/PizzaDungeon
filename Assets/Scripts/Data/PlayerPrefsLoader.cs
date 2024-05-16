@@ -11,6 +11,8 @@ public class PlayerPrefsLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = true;
+
         for (int i = 0; i < mixerGroups.Length; i++)
         {
             audioMixer.SetFloat(mixerGroups[i], PlayerPrefs.GetFloat(mixerGroups[i]));

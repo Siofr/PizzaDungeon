@@ -11,14 +11,11 @@ public class DamageFlash : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Material material;
+
+    [SerializeField] private bool isPlayer = false;
+
     // Start is called before the first frame update
     void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         material = spriteRenderer.material;
@@ -26,7 +23,6 @@ public class DamageFlash : MonoBehaviour
 
     public void CallDamageFlash()
     {
-        Debug.Log("Called");
         damageFlashRoutine = StartCoroutine(DamageFlasher());
     }
 
