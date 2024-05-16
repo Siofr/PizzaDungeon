@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   gunSprite: {fileID: 21300000, guid: 7ff84bffd03f068488f6ffb5685a762b, type: 3}
-  damage: 3
+  damage: 15
   fireRate: 1
   bulletSpeed: 15
   bulletLifetime: 1

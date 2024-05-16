@@ -11,6 +11,9 @@ public struct GameStatus
     public int highestEnemiesKilled;
     public int timesDied;
 
+    public int enemiesKilledFastestRun;
+    public int pizzasCraftedFastestRun;
+
     public int numberOfRuns;
     public int totalPizzasCrafted;
 

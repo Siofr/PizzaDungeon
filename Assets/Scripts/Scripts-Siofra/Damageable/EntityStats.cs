@@ -7,7 +7,13 @@ public class EntityStats : MonoBehaviour, IDamageable
 {
     public float health;
     private float maxHealth;
+
+    public float dashAmount;
+    [SerializeField] private float staminaRegenSpeed;
+
     [SerializeField] private Healthbar healthbar;
+    [SerializeField] private Slider staminaBar;
+    public bool hasStamina = true;
 
     public DamageType currentDamageType;
     public DamageType currentResistance;
@@ -17,14 +23,25 @@ public class EntityStats : MonoBehaviour, IDamageable
     [SerializeField] GameObject bulletEntity;
     private Bullet bulletScript;
 
+    private DamageFlash damageFlash;
+
     public float entitySpeed;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if (PlayerPrefs.GetFloat("PlayerHealth") == 0)
+        {
+            PlayerPrefs.SetFloat("PlayerHealth", 1.0f);
+        }
+
         bulletScript = bulletEntity.GetComponent<Bullet>();
         bulletScript.SwapBulletDamageType(currentDamageType);
-        maxHealth = health * PlayerPrefs.GetFloat("PlayerHealth");
+
+        health = health * PlayerPrefs.GetFloat("PlayerHealth");
+        maxHealth = health;
+
+        // damageFlash.GetComponent<DamageFlash>();
 
         Slider healthbarComponent = healthbar.GetComponent<Slider>();
         healthbarComponent.maxValue = maxHealth;
@@ -52,6 +69,7 @@ public class EntityStats : MonoBehaviour, IDamageable
         else
         {
             health -= value * valueMultiplier;
+            // damageFlash.CallDamageFlash();
         }
 
         if (health <= 0)
@@ -97,5 +115,25 @@ public class EntityStats : MonoBehaviour, IDamageable
     public void SwapHealedBy(DamageType newHealedBy)
     {
         currentHealedBy = newHealedBy;
+    }
+
+    public IEnumerator Stamina()
+    {
+        hasStamina = false;
+
+        staminaBar.value = 0;
+
+        while (staminaBar.maxValue - staminaBar.value > 0.5f)
+        {
+            staminaBar.value = Mathf.Lerp(staminaBar.value, staminaBar.maxValue, staminaRegenSpeed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        staminaBar.value = staminaBar.maxValue;
+
+        hasStamina = true;
+
+        yield return null;
     }
 }

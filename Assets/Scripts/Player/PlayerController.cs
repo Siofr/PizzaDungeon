@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rgdBody;
 
     public Transform cameraTarget;
+    private Transform playerTransform;
 
     // Player Inputs
     public PlayerInputs playerInputs;
@@ -31,8 +32,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera playerCam;
     [SerializeField] private Transform weaponTransform;
     [SerializeField] private SpriteRenderer weaponRenderer;
+    [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private Transform bodyTransform;
     [SerializeField] private Transform crosshair;
+    [SerializeField] private Animator anim;
 
     public bool isGamepad;
 
@@ -71,13 +74,15 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = false;
 
+        playerTransform = GetComponent<Transform>();
+
         playerInputs = new PlayerInputs();
         rgdBody = GetComponent<Rigidbody2D>();
 
         playerStatsScript = GetComponent<EntityStats>();
         gunScript = GetComponentInChildren<Gun>();
 
-        weaponRenderer = weaponTransform.GetComponent<SpriteRenderer>();
+        weaponRenderer = weaponTransform.GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -86,6 +91,15 @@ public class PlayerController : MonoBehaviour
         Move();
         Look();
         cameraTarget.position = (bodyTransform.position + crosshair.position) / 2;
+
+        if (rgdBody.velocity.magnitude > 0 || rgdBody.velocity.magnitude < 0)
+        {
+            anim.SetBool("isMoving", true);
+        }
+        else
+        {
+            anim.SetBool("isMoving", false);
+        }
     }
 
     private void FixedUpdate()
@@ -96,8 +110,8 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         directionInput = move.ReadValue<Vector2>();
-
-        if (directionInput != Vector2.zero && lookInput == Vector2.zero)
+        Debug.Log(directionInput);
+        if (directionInput != Vector2.zero)
         {
             FlipSprite(directionInput);
         }
@@ -119,9 +133,21 @@ public class PlayerController : MonoBehaviour
             FlipSprite(lookInput);
         }
 
-        Vector2 aimDirection = (lookInput - new Vector2(transform.position.x, transform.position.y)).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        weaponTransform.eulerAngles = new Vector3(0, 0, angle);
+        Vector2 aimDirection = (lookInput - new Vector2(playerTransform.position.x, playerTransform.position.y)).normalized;
+
+        Quaternion rotation = Quaternion.LookRotation(aimDirection);
+
+        rotation.x = weaponTransform.transform.rotation.x;
+        rotation.y = weaponTransform.transform.rotation.y;
+        weaponTransform.transform.rotation = rotation;
+
+        //Vector3 newDirection = Vector3.RotateTowards(transform.forward, aimDirection, 5f, 0.0f);
+        //weaponTransform.transform.rotation = Quaternion.LookRotation(newDirection);
+
+        // float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        // weaponTransform.eulerAngles = new Vector3(0, 0, angle);
+
+        // weaponTransform.RotateAround(weaponTransform.position, transform.forward, angle);
     }
 
     private void Swap(InputAction.CallbackContext context)
@@ -133,22 +159,48 @@ public class PlayerController : MonoBehaviour
 
     private void Dash(InputAction.CallbackContext context)
     {
-
+        if (playerStatsScript.hasStamina)
+        {
+            StartCoroutine(Dash());
+        }
     }
 
     private void FlipSprite(Vector2 directionalInput)
     {
-        if (directionalInput.x > 0)
+        if (directionalInput.x > 0 || crosshair.position.x > playerTransform.position.x)
         {
+            Debug.Log("Flip Positive");
+            // playerSprite.flipX = false;
             bodyTransform.localScale = new Vector3(1, bodyTransform.localScale.y, bodyTransform.localScale.z);
-            weaponRenderer.flipY = false;
-            weaponRenderer.flipX = false;
+            // weaponRenderer.flipY = false;
+            // weaponRenderer.flipX = false;
         }
-        else if (directionalInput.x < 0)
+        else if (directionalInput.x < 0 || crosshair.position.x < playerTransform.position.x)
         {
+            Debug.Log("Flip Negative");
+            // playerSprite.flipX = true;
             bodyTransform.localScale = new Vector3(-1, bodyTransform.localScale.y, bodyTransform.localScale.z);
-            weaponRenderer.flipY = true;
-            weaponRenderer.flipX = true;
+            // weaponRenderer.flipY = true;
+            // weaponRenderer.flipX = true;
         }
+    }
+
+    private IEnumerator Dash()
+    {
+        StartCoroutine(playerStatsScript.Stamina());
+
+        float originalSpeed = playerStatsScript.entitySpeed;
+        playerStatsScript.entitySpeed += playerStatsScript.dashAmount;
+
+        while (playerStatsScript.entitySpeed - originalSpeed > 0.5f)
+        {
+            playerStatsScript.entitySpeed = Mathf.Lerp(playerStatsScript.entitySpeed, originalSpeed, 3.5f * Time.deltaTime);
+
+            yield return null;
+        }
+
+        playerStatsScript.entitySpeed = originalSpeed;
+
+        yield return null;
     }
 }

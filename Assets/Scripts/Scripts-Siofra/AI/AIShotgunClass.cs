@@ -7,9 +7,25 @@ public class AIShotgunClass : AIBaseClass
     [SerializeField] private float spread;
     [SerializeField] private int numProjectiles;
 
+    private GameObject[] bullets;
+
     private Quaternion currentRotation;
     private float startAngle;
     private float endAngle;
+
+    public override void Awake()
+    {
+        base.Awake();
+        bullets = new GameObject[numProjectiles];
+
+        for (int i = 0; i < numProjectiles; i++)
+        {
+            GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            newBullet.transform.SetParent(gameObject.transform);
+            Debug.Log(newBullet);
+            bullets[i] = newBullet;
+        }
+    }
 
     public override IEnumerator Attack()
     {
@@ -22,10 +38,11 @@ public class AIShotgunClass : AIBaseClass
         {
             float currentAngle = startAngle + angleSteps * i;
             Vector3 bulletDirection = new Vector3(0, 0, currentAngle);
-            GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            bullets[i].transform.position = transform.position;
+            bullets[i].transform.rotation = currentRotation;
             currentRotation.eulerAngles = bulletDirection;
-            newBullet.transform.rotation = currentRotation;
-            newBullet.SetActive(true);
+            bullets[i].transform.rotation = currentRotation;
+            bullets[i].SetActive(true);
         }
 
         isAttacking = false;
