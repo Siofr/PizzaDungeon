@@ -13,6 +13,9 @@ public class CraftingUI : MonoBehaviour
     public bool MenuOpen;
     public bool trash;
 
+    // 0 pepperoni, 1 pineapple, 2 olive, 3 mushroom, 4 cheese, 5 tomato, 6 pepper
+    public int[] itemVars;
+    
     //Items vars
     public int peperoni;
     public int pineapple;
@@ -241,12 +244,13 @@ public class CraftingUI : MonoBehaviour
         if (!trash)
         {
         Debug.Log("bruh1");
-        peperoni--; 
+        itemVars[0]--; 
         playerStatsScript.health = 10;
         }
         else
         {
-            peperoni++;
+            // 0 pepperoni, 1 pineapple, 2 olive, 3 mushroom, 4 cheese, 5 tomato, 6 pepper
+            itemVars[0]++;
             
         }
     }
@@ -254,7 +258,7 @@ public class CraftingUI : MonoBehaviour
     void Effect2()
     {
         Debug.Log("bruh2");
-        olive--;
+        itemVars[2]--;
         playerStatsScript.health = playerStatsScript.health - 5;
         
     }
@@ -262,7 +266,7 @@ public class CraftingUI : MonoBehaviour
     void Effect3()
     {
         Debug.Log("bruh3");
-        pepper--;
+        itemVars[6]--;
        playerStatsScript.entitySpeed = playerStatsScript.entitySpeed + 3;
         playerStatsScript.SwapResistance(damageType2);
     }
@@ -270,25 +274,25 @@ public class CraftingUI : MonoBehaviour
     void Effect4()
     {
         Debug.Log("bruh4");
-        tomato--;
+        itemVars[5]--;
         playerStatsScript.SwapResistance(damageType);
     }
     void Effect5()
     {
         Debug.Log("bruh5");
-        cheese--;
+        itemVars[4]--;
         
     }
     void Effect6()
     {
         Debug.Log("bruh6");
-        mushroom--;
+        itemVars[3]--;
 
     }
     void Effect7()
     {
         Debug.Log("bruh7");
-        pineapple--;
+        itemVars[1]--;
 
     }
 

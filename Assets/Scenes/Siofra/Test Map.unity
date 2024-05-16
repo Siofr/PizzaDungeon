@@ -2835,8 +2835,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abff3b2e3e88dbf469ef56425a249dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   magnetRange: 2.5
   magnetPower: 3
+  craftingUI: {fileID: 0}
   player: {fileID: 0}
 --- !u!58 &190713003
 CircleCollider2D:
@@ -4760,8 +4762,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abff3b2e3e88dbf469ef56425a249dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 1
   magnetRange: 2.5
   magnetPower: 3
+  craftingUI: {fileID: 0}
   player: {fileID: 0}
 --- !u!58 &390364788
 CircleCollider2D:
@@ -5669,8 +5673,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abff3b2e3e88dbf469ef56425a249dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 4
   magnetRange: 2.5
   magnetPower: 3
+  craftingUI: {fileID: 0}
   player: {fileID: 0}
 --- !u!58 &430414549
 CircleCollider2D:
@@ -5948,8 +5954,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abff3b2e3e88dbf469ef56425a249dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 3
   magnetRange: 2.5
   magnetPower: 3
+  craftingUI: {fileID: 0}
   player: {fileID: 0}
 --- !u!58 &458009076
 CircleCollider2D:
@@ -24455,8 +24463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abff3b2e3e88dbf469ef56425a249dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 5
   magnetRange: 2.5
   magnetPower: 3
+  craftingUI: {fileID: 0}
   player: {fileID: 0}
 --- !u!58 &1481075910
 CircleCollider2D:
@@ -28614,8 +28624,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abff3b2e3e88dbf469ef56425a249dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 2
   magnetRange: 2.5
   magnetPower: 3
+  craftingUI: {fileID: 0}
   player: {fileID: 0}
 --- !u!58 &1823623074
 CircleCollider2D:
@@ -29112,8 +29124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abff3b2e3e88dbf469ef56425a249dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 6
   magnetRange: 2.5
   magnetPower: 3
+  craftingUI: {fileID: 0}
   player: {fileID: 0}
 --- !u!58 &1862581121
 CircleCollider2D:

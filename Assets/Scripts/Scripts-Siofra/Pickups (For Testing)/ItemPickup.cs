@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
+    [SerializeField] private int itemIndex;
     [SerializeField] private float magnetRange;
     [SerializeField] private float magnetPower;
+
+    [SerializeField] private CraftingUI craftingUI;
     public GameObject player;
 
     // Start is called before the first frame update
@@ -27,7 +30,7 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            // Increase some value
+            craftingUI.itemVars[itemIndex]++;
             gameObject.SetActive(false);
         }
     }
