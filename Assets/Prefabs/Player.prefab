@@ -321,7 +321,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.2307693, y: 1.2307693}
+  m_Size: {x: 1.3333334, y: 1.3333334}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -598,6 +598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashColor: {r: 0.49056602, g: 0, b: 0, a: 0}
   flashTime: 0.25
+  isPlayer: 0
 --- !u!1 &6541745044646654269
 GameObject:
   m_ObjectHideFlags: 0
