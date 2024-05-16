@@ -11,6 +11,7 @@ public class CraftingUI : MonoBehaviour
     // deligates 
     delegate void AffectThePlayer();
     public bool MenuOpen;
+    public bool trash;
 
     //Items vars
     public int peperoni;
@@ -21,9 +22,13 @@ public class CraftingUI : MonoBehaviour
     public int tomato;
     public int pepper;
 
+    
+
+
+
 
     // other 
-    private EntityStats playerStatsScript;
+    public  EntityStats playerStatsScript;
     public GameObject DaMenu;
     AudioSource audioSource;
 
@@ -39,7 +44,7 @@ public class CraftingUI : MonoBehaviour
 
     private void Awake()
     {
-        playerStatsScript = GetComponent<EntityStats>();
+       // playerStatsScript = GetComponent<EntityStats>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -132,7 +137,6 @@ public class CraftingUI : MonoBehaviour
         if (peperoni >= 1)
         {
         deligateEffect.Add(Effect1);
-
         }
         else
         {
@@ -234,31 +238,40 @@ public class CraftingUI : MonoBehaviour
 
     void Effect1()
     {
+        if (!trash)
+        {
         Debug.Log("bruh1");
         peperoni--; 
-       // playerStatsScript.health = 10;
+        playerStatsScript.health = 10;
+        }
+        else
+        {
+            peperoni++;
+            
+        }
     }
 
     void Effect2()
     {
         Debug.Log("bruh2");
         olive--;
-      //  playerStatsScript.health = playerStatsScript.health - 5;
+        playerStatsScript.health = playerStatsScript.health - 5;
+        
     }
 
     void Effect3()
     {
         Debug.Log("bruh3");
         pepper--;
-      //  playerStatsScript.entitySpeed = playerStatsScript.entitySpeed + 3;
-       // playerStatsScript.SwapResistance(damageType2);
+       playerStatsScript.entitySpeed = playerStatsScript.entitySpeed + 3;
+        playerStatsScript.SwapResistance(damageType2);
     }
 
     void Effect4()
     {
         Debug.Log("bruh4");
         tomato--;
-        //playerStatsScript.SwapResistance(damageType);
+        playerStatsScript.SwapResistance(damageType);
     }
     void Effect5()
     {
