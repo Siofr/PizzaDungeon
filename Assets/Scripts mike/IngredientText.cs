@@ -30,6 +30,7 @@ public class IngredientText : MonoBehaviour
         text4.text = ints.itemVars[1].ToString();
         text5.text = ints.itemVars[3].ToString();
         text6.text = ints.itemVars[5].ToString();
-        text7.text = ints.itemVars[6].ToString();
+        text7.text = ints.itemVars[4].ToString();
     }
+    // 0 pepperoni, 1 pineapple, 2 olive, 3 mushroom, 4 cheese, 5 tomato, 6 pepper
 }

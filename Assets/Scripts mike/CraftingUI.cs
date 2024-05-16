@@ -17,14 +17,7 @@ public class CraftingUI : MonoBehaviour
     public int[] itemVars;
     
     //Items vars
-    public int peperoni;
-    public int pineapple;
-    public int olive;
-    public int mushroom;
-    public int cheese;
-    public int tomato;
-    public int pepper;
-
+    
     
 
 
@@ -34,6 +27,7 @@ public class CraftingUI : MonoBehaviour
     public  EntityStats playerStatsScript;
     public GameObject DaMenu;
     AudioSource audioSource;
+    public UIVisualise Vis;
 
     [Header("DamageTypes")]
     [SerializeField] private DamageType damageType;
@@ -91,7 +85,10 @@ public class CraftingUI : MonoBehaviour
         DebugList.text = result;
 
     }
-
+    public void Trashmethod()
+    {
+        trash = true;
+    }
     public void Menu(InputAction.CallbackContext context)
     {
         if (!MenuOpen)
@@ -123,6 +120,7 @@ public class CraftingUI : MonoBehaviour
                 deligateEffect[1]();
                 deligateEffect[2]();
                 MenuOpen = false;
+                Vis.GETITOFF();
 
                 for (int i = 0; i < deligateEffect.Count; i++)
                 {
@@ -137,9 +135,11 @@ public class CraftingUI : MonoBehaviour
 
     public void addIngredient1()
     {
-        if (peperoni >= 1)
+        if (itemVars[0]>= 1 && deligateEffect.Count<=2)
         {
         deligateEffect.Add(Effect1);
+            Vis.VisualON0();
+            itemVars[0]--;
         }
         else
         {
@@ -150,10 +150,11 @@ public class CraftingUI : MonoBehaviour
 
     public void addIngredient2()
     {
-        if (olive >= 1)
+        if (itemVars[2] >= 1 && deligateEffect.Count <= 2)
         {
         deligateEffect.Add(Effect2);
-
+            Vis.VisualON2();
+            itemVars[2]--;
         }
         else
         {
@@ -163,9 +164,11 @@ public class CraftingUI : MonoBehaviour
     }
     public void addIngredient3()
     {
-        if (pepper >= 1)
+        if (itemVars[6] >= 1 && deligateEffect.Count <= 2)
         {
             deligateEffect.Add(Effect3);
+            Vis.VisualON6();
+            itemVars[6]--;
         }
         else
         {
@@ -176,9 +179,11 @@ public class CraftingUI : MonoBehaviour
 
     public void addIngredient4()
     {
-        if (tomato >= 1)
+        if (itemVars[5] >= 1 && deligateEffect.Count <= 2)
         {
             deligateEffect.Add(Effect4);
+            Vis.VisualON5();
+            itemVars[5]--;
         }
         else
         {
@@ -188,9 +193,11 @@ public class CraftingUI : MonoBehaviour
     }
     public void addIngredient5()
     {
-        if (cheese >= 1)
+        if (itemVars[4] >= 1 && deligateEffect.Count <= 2)
         {
             deligateEffect.Add(Effect5);
+            Vis.VisualON4();
+            itemVars[4]--;
         }
         else
         {
@@ -200,9 +207,11 @@ public class CraftingUI : MonoBehaviour
     }
     public void addIngredient6()
     {
-        if (mushroom >= 1)
+        if (itemVars[3] >= 1 && deligateEffect.Count <= 2)
         {
             deligateEffect.Add(Effect6);
+            Vis.VisualON3();
+            itemVars[3]--;
         }
         else
         {
@@ -212,9 +221,11 @@ public class CraftingUI : MonoBehaviour
     }
     public void addIngredient7()
     {
-        if (pineapple >= 1)
+        if (itemVars[1] >= 1 && deligateEffect.Count <= 2  )
         {
             deligateEffect.Add(Effect7);
+            Vis.VisualON1();
+            itemVars[1]--;
         }
         else
         {
@@ -231,6 +242,8 @@ public class CraftingUI : MonoBehaviour
         {
            // deligateEffect.Remove(deligateEffect[i]);
             deligateEffect.Clear();
+            Vis.VisualOFF0();
+            //trash = false;
         }
     }
 
@@ -244,21 +257,16 @@ public class CraftingUI : MonoBehaviour
         if (!trash)
         {
         Debug.Log("bruh1");
-        itemVars[0]--; 
+        
         playerStatsScript.health = 10;
         }
-        else
-        {
-            // 0 pepperoni, 1 pineapple, 2 olive, 3 mushroom, 4 cheese, 5 tomato, 6 pepper
-            itemVars[0]++;
-            
-        }
+       
     }
 
     void Effect2()
     {
         Debug.Log("bruh2");
-        itemVars[2]--;
+        
         playerStatsScript.health = playerStatsScript.health - 5;
         
     }
@@ -266,7 +274,7 @@ public class CraftingUI : MonoBehaviour
     void Effect3()
     {
         Debug.Log("bruh3");
-        itemVars[6]--;
+       
        playerStatsScript.entitySpeed = playerStatsScript.entitySpeed + 3;
         playerStatsScript.SwapResistance(damageType2);
     }
@@ -274,25 +282,26 @@ public class CraftingUI : MonoBehaviour
     void Effect4()
     {
         Debug.Log("bruh4");
-        itemVars[5]--;
         playerStatsScript.SwapResistance(damageType);
     }
     void Effect5()
     {
         Debug.Log("bruh5");
-        itemVars[4]--;
+
         
     }
     void Effect6()
     {
         Debug.Log("bruh6");
-        itemVars[3]--;
+
+        // heal basic enemy type bruh
+
 
     }
     void Effect7()
     {
         Debug.Log("bruh7");
-        itemVars[1]--;
+ 
 
     }
 
