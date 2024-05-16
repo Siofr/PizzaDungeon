@@ -468,10 +468,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b599d598969ae2438ef430dd3ee9339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crosshair: {fileID: 0}
   gunDataArray:
   - {fileID: 11400000, guid: 8ddb97012739a7f40a437d5bcddc46e1, type: 2}
   - {fileID: 11400000, guid: cbaefc781a47db34ea480674e4f4b868, type: 2}
   bullet: {fileID: 1973480612}
+  spread: 0
 --- !u!212 &27205936
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1599,7 +1601,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 309217961
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 55473be371369634c87334943975455c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3585,7 +3587,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 309217961
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4c3750768ba2f2d47ab1088e520b3b58, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3890,6 +3892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rgdBody: {fileID: 0}
+  cameraTarget: {fileID: 0}
   playerCam: {fileID: 349557373}
   weaponTransform: {fileID: 27205934}
   weaponRenderer: {fileID: 0}
@@ -3971,6 +3974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  healthbar: {fileID: 0}
   currentDamageType: {fileID: 11400000, guid: 6af5f47c97babf54f8bcb4c49ea0ad8a, type: 2}
   currentResistance: {fileID: 0}
   currentWeakness: {fileID: 0}
@@ -4277,7 +4281,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -941446055
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4d8b5f635d91d43439d3ab9022371513, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8780,6 +8784,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3880dafa36dc7a741a1f0d2985ff6662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impactEffect: {fileID: 0}
+  impactAnimator: {fileID: 0}
+  impactClip: {fileID: 0}
+  rgdBody: {fileID: 0}
   bulletDamage: 0
   damageType: {fileID: 0}
   bulletSprite: {fileID: 1973480616}
