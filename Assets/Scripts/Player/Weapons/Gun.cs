@@ -10,7 +10,7 @@ public class Gun : MonoBehaviour
     [SerializeField] GunScriptableObject[] gunDataArray;
     [SerializeField] GameObject bullet;
     private Bullet bulletScript;
-    private AudioPlayer audioPlayer;
+    public AudioSource audioPlayer;
 
     private float nextShot;
     private int currentWeapon;
@@ -25,7 +25,6 @@ public class Gun : MonoBehaviour
 
     private void Awake()
     {
-        audioPlayer = GetComponentInParent<AudioPlayer>();
         weaponRenderer = GetComponent<SpriteRenderer>();
         weaponRenderer.sprite = gunDataArray[currentWeapon].gunSprite;
 
@@ -37,7 +36,8 @@ public class Gun : MonoBehaviour
     {
         if (Time.time > nextShot)
         {
-            audioPlayer.PlayAudio(gunDataArray[currentWeapon].firingNoise);
+            audioPlayer.clip = gunDataArray[currentWeapon].firingNoise;
+            audioPlayer.Play();
             nextShot = Time.time + gunDataArray[currentWeapon].fireRate;
 
             Vector3 targetDir = crosshair.position - transform.position;

@@ -8,6 +8,9 @@ public class EntityStats : MonoBehaviour, IDamageable
     public float health;
     private float maxHealth;
 
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+
     public float dashAmount;
     [SerializeField] public float staminaRegenSpeed;
 
@@ -52,6 +55,9 @@ public class EntityStats : MonoBehaviour, IDamageable
 
     public void ChangeHealth(float value, DamageType damageType)
     {
+        audioSource.clip = audioClip;
+        audioSource.Play();
+
         float valueMultiplier = 1.0f;
 
         if (currentResistance == damageType)

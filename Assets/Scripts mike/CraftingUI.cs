@@ -75,7 +75,6 @@ public class CraftingUI : MonoBehaviour
             {
                 MenuOpen = true;
                 DaMenu.SetActive(true);
-                
             }
             else
             {
