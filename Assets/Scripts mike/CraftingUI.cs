@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using static UnityEditor.Progress;
 
 public class CraftingUI : MonoBehaviour
@@ -15,8 +16,11 @@ public class CraftingUI : MonoBehaviour
 
     // 0 pepperoni, 1 pineapple, 2 olive, 3 mushroom, 4 cheese, 5 tomato, 6 pepper
     public int[] itemVars;
+    public ChangeTypePic Changepic;
 
-    //Items vars
+    //GunSO
+    public GunScriptableObject Pistol;
+    public GunScriptableObject Shotgun;
 
 
     //UI Effects
@@ -26,10 +30,15 @@ public class CraftingUI : MonoBehaviour
     public GameObject CurWeakness;
     public GameObject DamegeType;
 
+    public GameObject FirerateUP;
+    public GameObject FirerateDown;
+
+
+
     public GameObject dashregenUP;
     public GameObject dashregenDOWN;
     public float DefaultEffectTimer;
-
+    
 
 
     // other 
@@ -53,6 +62,7 @@ public class CraftingUI : MonoBehaviour
     {
        // playerStatsScript = GetComponent<EntityStats>();
         audioSource = GetComponent<AudioSource>();
+      
     }
 
     private void Update()
@@ -266,13 +276,21 @@ public class CraftingUI : MonoBehaviour
 
     void Effect1()//peperoni
     {
-        Debug.Log("bruh1");
+        if (!trash)
+        {
+     Debug.Log("bruh1");
 
-        playerStatsScript.SwapDamageType(damageType);
-        playerStatsScript.staminaRegenSpeed = playerStatsScript.staminaRegenSpeed - 3;
-        dashregenDOWN.SetActive(true);
-        dashregenDOWN.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
-        StartCoroutine(RegenDown(DefaultEffectTimer));
+            playerStatsScript.SwapDamageType(damageType);
+            Changepic.ChangePicDtype(damageType);
+            playerStatsScript.staminaRegenSpeed = playerStatsScript.staminaRegenSpeed - 3;
+            dashregenDOWN.SetActive(true);
+            dashregenDOWN.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+            StartCoroutine(RegenDown(DefaultEffectTimer));
+        }
+       else
+        {
+            itemVars[0]++;
+        }
 
     }
     IEnumerator RegenDown(float delay)
@@ -283,17 +301,38 @@ public class CraftingUI : MonoBehaviour
     }
     void Effect2()//olive 
     {
-        Debug.Log("bruh2");
+        if (!trash)
+        {
+            Debug.Log("bruh2");
 
-        Speeddown.SetActive(true);
-        Speeddown.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+            Speeddown.SetActive(true);
+            Speeddown.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+            FirerateUP.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+
+            playerStatsScript.SwapResistance(damageType2);
+            Changepic.ChangePicResist(damageType2);
+            playerStatsScript.entitySpeed = playerStatsScript.entitySpeed - 3;
+            Pistol.fireRate -= 0.20f;
+            Shotgun.fireRate -= 0.20f;
+            FirerateUP.SetActive(true);
 
 
-        playerStatsScript.SwapResistance(damageType2);
-        playerStatsScript.entitySpeed = playerStatsScript.entitySpeed - 3;
-        StartCoroutine(SpeedDebuff(DefaultEffectTimer));
+            StartCoroutine(SpeedDebuff(DefaultEffectTimer));
+            StartCoroutine(FireRateBuff(DefaultEffectTimer));
+        }
+        else
+        {
+            itemVars[2]++;
+        }
 
 
+    }
+    IEnumerator FireRateBuff(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Pistol.fireRate += 0.20f;
+        Shotgun.fireRate += 0.20f;
+        FirerateUP.SetActive(false);
     }
     IEnumerator SpeedDebuff(float delay)
     {
@@ -303,14 +342,22 @@ public class CraftingUI : MonoBehaviour
     }
     void Effect3()//peper
     {
-        Debug.Log("bruh3");
-       Speedboost.SetActive(true);
-        Speedboost.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
-        StartCoroutine(SpeedBoost(DefaultEffectTimer));
-       
-       playerStatsScript.entitySpeed = playerStatsScript.entitySpeed + 3;
-        playerStatsScript.SwapResistance(null);
-        playerStatsScript.health = playerStatsScript.health - 10;
+        if (!trash)
+        {
+            Debug.Log("bruh3");
+            Speedboost.SetActive(true);
+            Speedboost.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+            StartCoroutine(SpeedBoost(DefaultEffectTimer));
+
+            playerStatsScript.entitySpeed = playerStatsScript.entitySpeed + 3;
+            playerStatsScript.SwapResistance(null);
+            Changepic.ChangePicResist(null);
+            playerStatsScript.ChangeHealth(-10, null);
+        }
+        else
+        {
+            itemVars[6]++;
+        }
     }
     IEnumerator SpeedBoost(float delay)
     {
@@ -321,36 +368,68 @@ public class CraftingUI : MonoBehaviour
 
     void Effect4()//tomato
     {
-        Debug.Log("bruh4");
-        playerStatsScript.SwapResistance(damageType2);
-        playerStatsScript.health += 5;
-        playerStatsScript.SwapWeakness(null);
+        if (!trash)
+        {
+            Debug.Log("bruh4");
+            playerStatsScript.SwapResistance(damageType2);
+            playerStatsScript.health += 5;
+            playerStatsScript.SwapWeakness(null);
+            Changepic.ChangePicWeak(null);
+            Changepic.ChangePicResist(damageType2);
+        }
+        else
+        {
+            itemVars[5]++;
+        }
 
     }
     void Effect5()//cheese
     {
-        Debug.Log("bruh5");
-        playerStatsScript.SwapResistance(damageType);
-        playerStatsScript.SwapWeakness(damageType3);
-        
+        if (!trash)
+        {
+            Debug.Log("bruh5");
+            playerStatsScript.SwapResistance(damageType);
+            playerStatsScript.SwapWeakness(damageType3);
+            Changepic.ChangePicWeak(damageType3);
+            Changepic.ChangePicResist(damageType);
+        }
+        else
+        {
+            itemVars[4]++;
+        }
     }
     void Effect6()//shroom
     {
-        Debug.Log("bruh6");
-        playerStatsScript.health += 20;
-        playerStatsScript.staminaRegenSpeed = playerStatsScript.staminaRegenSpeed - 3;
-        dashregenDOWN.SetActive(true);
-        dashregenDOWN.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
-        StartCoroutine(RegenDown(DefaultEffectTimer));
+        if (!trash)
+        {
+            Debug.Log("bruh6");
+            // playerStatsScript.health += 20;
+            playerStatsScript.ChangeHealth(+20, null);
+            playerStatsScript.staminaRegenSpeed = playerStatsScript.staminaRegenSpeed - 3;
+            dashregenDOWN.SetActive(true);
+            dashregenDOWN.transform.Find("fill").GetComponent<StatusProgressBar>().ActivateCD(DefaultEffectTimer);
+            StartCoroutine(RegenDown(DefaultEffectTimer));
+        }
+        else
+        {
+            itemVars[3]++;
+        }
 
 
 
     }
     void Effect7()//pinapple
     {
-        Debug.Log("bruh7");
-        DefaultEffectTimer += 5;
-       StartCoroutine(AddTime(DefaultEffectTimer));
+        if (!trash)
+        {
+            Debug.Log("bruh7");
+            DefaultEffectTimer += 5;
+            StartCoroutine(AddTime(DefaultEffectTimer));
+        }
+        else
+        {
+            itemVars[1]++;
+        }
 
 
     }
