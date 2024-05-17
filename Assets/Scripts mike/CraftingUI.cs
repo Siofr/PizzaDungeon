@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class CraftingUI : MonoBehaviour
 {
@@ -39,7 +37,7 @@ public class CraftingUI : MonoBehaviour
     public GameObject dashregenDOWN;
     public float DefaultEffectTimer;
     
-
+    [SerializeField] private GameDataManager gameDataManager;
 
     // other 
     public  EntityStats playerStatsScript;
@@ -137,6 +135,7 @@ public class CraftingUI : MonoBehaviour
              }
             else
             {
+                gameDataManager.pizzasCraftedCurrentSession++;
                 deligateEffect[0]();
                 deligateEffect[1]();
                 deligateEffect[2]();

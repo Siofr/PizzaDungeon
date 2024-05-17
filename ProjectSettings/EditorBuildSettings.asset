@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game/MainMenu.unity
     guid: 981dd1e638144be478a26609fd1f699c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Siofra/Test Map.unity
     guid: eddd0a2c1be11664186f6046685a6aaa
+  - enabled: 1
+    path: Assets/Scenes/Siofra/MapWithLayout.unity
+    guid: 38a161c4a3e77494297563efe0dc89b9
   m_configObjects: {}

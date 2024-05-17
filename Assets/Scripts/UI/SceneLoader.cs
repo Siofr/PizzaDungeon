@@ -7,7 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     public void LoadGame()
     {
-        SceneManager.LoadScene("Test Map");
+        SceneManager.LoadScene("MapWithLayout");
     }
 
     public void QuitGame()
