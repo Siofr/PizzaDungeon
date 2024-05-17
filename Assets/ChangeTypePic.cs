@@ -25,19 +25,19 @@ public class ChangeTypePic : MonoBehaviour
     {
         h = type;
         
-        if ( h = damageType)
+        if ( h == damageType)
         {
             CurResist.GetComponent<Image>().sprite = Phys;
         }
-        if (h = damageType2)
+        if (h == damageType2)
         {
             CurResist.GetComponent<Image>().sprite = Poison;
         }
-        if (h = damageType3)
+        if (h == damageType3)
         {
             CurResist.GetComponent<Image>().sprite = Fire;
         }
-        if (h = null)
+        if (h == null)
         {
             CurResist.GetComponent<Image>().sprite = None;
         }
@@ -46,19 +46,19 @@ public class ChangeTypePic : MonoBehaviour
     public void ChangePicWeak(DamageType Type)
     {
         h = Type;
-        if (h = damageType)
+        if (h == damageType)
         {
             CurWeakness.GetComponent<Image>().sprite = Phys;
         }
-        if (h = damageType2)
+        if (h == damageType2)
         {
             CurWeakness.GetComponent<Image>().sprite = Poison;
         }
-        if (h = damageType3)
+        if (h == damageType3)
         {
             CurWeakness.GetComponent<Image>().sprite = Fire;
         }
-        if (h = null)
+        if (h == null)
         {
             CurWeakness.GetComponent<Image>().sprite = None;
         }
@@ -67,15 +67,15 @@ public class ChangeTypePic : MonoBehaviour
     public void ChangePicDtype(DamageType Type)
     {
         h = Type;
-        if (h = damageType)
+        if (h == damageType)
         {
             DamegeType.GetComponent<Image>().sprite = Phys;
         }
-        if (h = damageType2)
+        if (h == damageType2)
         {
             DamegeType.GetComponent<Image>().sprite = Poison;
         }
-        if (h  = damageType3)
+        if (h  == damageType3)
         {
             DamegeType.GetComponent<Image>().sprite = Fire;
         }
